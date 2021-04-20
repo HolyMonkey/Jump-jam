@@ -66,8 +66,8 @@ public class CarDrive : MonoBehaviour
         {
             if (axle.Steering)
             {
-                axle.RightWheel.steerAngle = _steerAngle * Mathf.Lerp(0, value, Time.fixedDeltaTime * 10);
-                axle.LeftWheel.steerAngle = _steerAngle * Mathf.Lerp(0, value, Time.fixedDeltaTime * 10);
+                axle.RightWheel.steerAngle = _steerAngle * Mathf.Lerp(0, value, Time.fixedDeltaTime);
+                axle.LeftWheel.steerAngle = _steerAngle * Mathf.Lerp(0, value, Time.fixedDeltaTime);
 
                 VisualizeWheel(axle.RightWheel, axle.RightWheelView);
                 VisualizeWheel(axle.LeftWheel, axle.LeftWheelView);

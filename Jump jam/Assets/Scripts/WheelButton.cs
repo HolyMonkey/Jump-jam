@@ -27,11 +27,11 @@ public class WheelButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public IEnumerator Rotate(int angle)
     {
-        while(_rotate)
-        {
-            _wheel.transform.Rotate(new Vector3(0, 0, -angle * 5));
-            _car.Rotate(_angle * 20);
-            yield return new WaitForSeconds(0.1f);            
+        _wheel.transform.DORotate(new Vector3(0, 0, 45 * -angle), 0.5f);
+        while (_rotate)
+        {            
+            _car.Rotate(_angle * 15);
+            yield return new WaitForSeconds(0.3f);            
         }
         yield break;
     }
