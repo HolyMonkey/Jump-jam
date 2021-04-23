@@ -201,7 +201,7 @@ public class CarDrive : MonoBehaviour
                 VisualizeWheel(axle.LeftWheel, axle.LeftWheelView);
             }
         }
-        _uiPanel.Hide();
+        
     }
 
     private void VisualizeWheel(WheelCollider collider, Transform view)
@@ -225,7 +225,7 @@ public class CarDrive : MonoBehaviour
 
         if (_carSpeed < 0.5f)
         {
-            StartCoroutine(_uiPanel.Hide());
+            
             Brake(100);
             _result.SetActive(true);
         }
@@ -248,9 +248,9 @@ public class CarDrive : MonoBehaviour
         }
 
         if (other.TryGetComponent(out Finish finish))
-        {
-            Debug.Log("FINISH");
-            Brake(1000);
+        {            
+            
+            Brake(2500);
             _result.SetActive(true);
         }
     }
@@ -262,7 +262,7 @@ public class CarDrive : MonoBehaviour
             _obstacles++;
             StatisticChanged?.Invoke(Mathf.RoundToInt(_distance), _obstacles, _checkpoints);
             Brake(1000);
-            StartCoroutine(_uiPanel.Hide());
+            
             _wall = true;
             _result.SetActive(true);
         }

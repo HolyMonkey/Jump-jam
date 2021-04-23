@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using DG.Tweening;
 
 public class Result : MonoBehaviour
 {
@@ -11,11 +12,12 @@ public class Result : MonoBehaviour
     [SerializeField] private TMP_Text _distanceText;
     [SerializeField] private TMP_Text _totalText;
     [SerializeField] private Statistics _stat;
+    [SerializeField] GameObject _wheel;
 
     private void OnEnable()
     {
-        _stat.gameObject.SetActive(false);  
-
+        _stat.gameObject.SetActive(false);
+        StartCoroutine(Hide());
         StartCoroutine(Show(_stat.Checkpoint, _checkpointText, 0.1f));
         StartCoroutine(Show(_stat.Distance, _distanceText, 0.001f));
         StartCoroutine(Show(_stat.Obstacle, _obstacletText, 0.1f));
@@ -37,5 +39,13 @@ public class Result : MonoBehaviour
             text.text = i.ToString();
         }
         yield break;
+    }
+
+    public IEnumerator Hide()
+    {
+        _wheel.transform.DOScale(new Vector3(0.01f, 0.01f, 1), 0.4f);
+        //_wheel.transform.DOMove(_target.position, 1f);
+        yield return new WaitForSeconds(0.4f);
+        _wheel.gameObject.SetActive(false);
     }
 }
