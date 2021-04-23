@@ -58,7 +58,7 @@ public class Car : MonoBehaviour
 
         if (other.TryGetComponent(out Finish fin))
         {
-            _uiPanel.HideUi();
+            _uiPanel.Hide();
         }
     }
 

@@ -6,8 +6,8 @@ using DG.Tweening;
 
 public class WheelButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
-    [SerializeField] private UiWheel _wheel;
-    [SerializeField] private  int _angle;
+    [SerializeField] private GameObject _wheel;
+    [SerializeField] private int _angle;
     [SerializeField] private CarDrive _car;
 
     private bool _rotate = false;
@@ -29,9 +29,9 @@ public class WheelButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         _wheel.transform.DORotate(new Vector3(0, 0, 45 * -angle), 0.5f);
         while (_rotate)
-        {            
-            _car.Rotate(_angle * 15);
-            yield return new WaitForSeconds(0.3f);            
+        {
+            _car.Rotate(_angle * 60);
+            yield return new WaitForSeconds(0.2f);
         }
         yield break;
     }

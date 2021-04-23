@@ -40,7 +40,7 @@ public class GasPedal : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         while (_gas)
         {
             _slider.value++;
-            _car.Boost(_boostValue);
+            _car.Boost(_boostValue*1.2f);
             yield return _delay;
         }
         yield break;
@@ -51,9 +51,9 @@ public class GasPedal : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         while (!_gas)
         {
             _slider.value--;
-            if (_car.CarSpeed > _car.StartSpeed + Mathf.Abs(_boostValue))
+            if (_car.CarSpeed > _car.StartSpeed + Mathf.Abs(_boostValue * 1.2f))
             {
-                _car.Boost(-1 * Mathf.Abs(_boostValue));
+                _car.Boost(-1.2f * Mathf.Abs(_boostValue));
             }
             yield return _delay;
         }
