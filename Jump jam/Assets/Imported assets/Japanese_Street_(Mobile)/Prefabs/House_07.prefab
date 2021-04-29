@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 2056829769684209707}
   - component: {fileID: 2056829769684209700}
   - component: {fileID: 2056829769684209701}
+  - component: {fileID: 2056829769684209702}
   - component: {fileID: 251830771725203749}
   m_Layer: 0
   m_Name: House_07
@@ -150,6 +151,25 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 10.057262, y: 7.5, z: 6.1099305}
   m_Center: {x: 5.0216045, y: 3.75, z: -3.0450351}
+--- !u!205 &2056829769684209702
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1173814522494119295}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: 3.8830585, y: 3.75, z: -2.6000001}
+  m_Size: 12.433884
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0.09651109
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 813680828308212906}
+  m_Enabled: 1
 --- !u!65 &251830771725203749
 BoxCollider:
   m_ObjectHideFlags: 0

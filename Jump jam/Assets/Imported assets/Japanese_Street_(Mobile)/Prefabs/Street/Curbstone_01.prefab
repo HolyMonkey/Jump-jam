@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 1522993452276363647}
   - component: {fileID: 2489674672558489306}
   - component: {fileID: 390105236962953744}
-  - component: {fileID: 7646395610988258007}
+  - component: {fileID: 1803848781626584544}
+  - component: {fileID: 1183757286465354623}
   m_Layer: 0
   m_Name: Curbstone_01
   m_TagString: Untagged
@@ -80,8 +81,8 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!136 &7646395610988258007
-CapsuleCollider:
+--- !u!65 &1803848781626584544
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -90,7 +91,25 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.06703186
-  m_Height: 5
-  m_Direction: 2
-  m_Center: {x: 0.063848555, y: 0.11430532, z: -2.5}
+  serializedVersion: 2
+  m_Size: {x: 0.13, y: 0.19104916, z: 5}
+  m_Center: {x: 0.065, y: 0.09552458, z: -2.5}
+--- !u!205 &1183757286465354623
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2191303401283644357}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: 0.065, y: 0.09552458, z: -2.5}
+  m_Size: 5
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0.09651109
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 390105236962953744}
+  m_Enabled: 1

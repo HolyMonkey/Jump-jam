@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7569533371606910047}
   - component: {fileID: 5685958592877342869}
   - component: {fileID: 3269947704345918005}
+  - component: {fileID: 2142173919032024732}
   m_Layer: 0
   m_Name: Scooter_01
   m_TagString: Untagged
@@ -93,3 +94,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.6360928, y: 1.154594, z: 1.8444643}
   m_Center: {x: 0.008199111, y: 0.5763165, z: 0.41230223}
+--- !u!205 &2142173919032024732
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6190313440656429376}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: 0.008199096, y: 0.5763165, z: 0.41230226}
+  m_Size: 1.8444643
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0.09651109
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 5685958592877342869}
+  m_Enabled: 1

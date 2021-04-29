@@ -6,7 +6,7 @@ using DG.Tweening;
 
 public class Result : MonoBehaviour
 {
-    [SerializeField] private CarDrive _car;
+    [SerializeField] private Drive _car;
     [SerializeField] private TMP_Text _checkpointText;
     [SerializeField] private TMP_Text _obstacletText;
     [SerializeField] private TMP_Text _distanceText;
@@ -16,12 +16,12 @@ public class Result : MonoBehaviour
 
     private void OnEnable()
     {
-        _stat.gameObject.SetActive(false);
-        StartCoroutine(Hide());
-        StartCoroutine(Show(_stat.Checkpoint, _checkpointText, 0.1f));
-        StartCoroutine(Show(_stat.Distance, _distanceText, 0.001f));
-        StartCoroutine(Show(_stat.Obstacle, _obstacletText, 0.1f));
-        StartCoroutine(Show(_stat.Checkpoint * 20 + _stat.Distance * 2 - _stat.Obstacle * 10, _totalText, 0.001f));
+        //_stat.gameObject.SetActive(false);
+        //StartCoroutine(Hide());
+        //StartCoroutine(Show(_stat.Checkpoint, _checkpointText, 0.1f));
+        StartCoroutine(Show(Mathf.RoundToInt(_car.transform.position.z), _distanceText, 0.001f));
+        StartCoroutine(Show(Mathf.RoundToInt(_car.CarSmashed/4), _obstacletText, 0.1f));
+        StartCoroutine(Show(Mathf.RoundToInt(_car.transform.position.z) + Mathf.RoundToInt(_car.CarSmashed / 4) * 10, _totalText, 0.001f));
     }
 
 

@@ -117,18 +117,8 @@ public class HandPointer : MonoBehaviour
 
     private void HandleMousePosition(Vector2 mousePosition)
     {
-        transform.position = _positionConverter.GetCursorPosition(mousePosition, _distance);
+        transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 5)) + new Vector3(0, -0.15f, 0);
 
-        float speed = transform.position.x - _lastX;
-        float right = 0.5f + speed * 1.5f;
 
-        if (right - _lastRight > 0.02f)
-            right = _lastRight + 0.02f;
-        else if (_lastRight - right > 0.02f)
-            right = _lastRight - 0.02f;
-
-        _animator.SetFloat("right", right);
-        _lastX = transform.position.x;
-        _lastRight = right;
     }
 }

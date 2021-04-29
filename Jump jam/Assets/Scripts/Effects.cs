@@ -9,9 +9,7 @@ public class Effects : MonoBehaviour
     [SerializeField] private Transform[] _brakeEffectPosition;
     [SerializeField] private GameObject _crushSmoke;
     [SerializeField] private GameObject _crushFire;
-    [SerializeField] private CarDrive _car;
-    [SerializeField] private GasPedal _gas;
-    [SerializeField] private GameObject _result;
+    [SerializeField] private Drive _car;
     [SerializeField] private Transmission _transmission;
     [SerializeField] private GameObject _brakePrefub;
 
@@ -20,12 +18,12 @@ public class Effects : MonoBehaviour
 
     private void Update()
     {
-        Brake();
+        //Brake();
     }
 
     private void OnEnable()
     {
-        _transmission.SpeedChanged += ChangePatricleLifetime;
+
     }
 
 
@@ -33,9 +31,10 @@ public class Effects : MonoBehaviour
     {
         if (collision.gameObject.TryGetComponent(out Obstacle obstacle))
         {
-            //Instantiate(_sparkEffect, collision.contacts[Random.Range(0, collision.contactCount)].point, transform.rotation);
+            Instantiate(_sparkEffect, collision.contacts[Random.Range(0, collision.contactCount)].point, transform.rotation);
         }
 
+        /*
         if (collision.gameObject.TryGetComponent(out Wall wall) || collision.gameObject.TryGetComponent(out ElectricPost post))
         {
             Instantiate(_sparkEffect, collision.contacts[Random.Range(0, collision.contactCount)].point, transform.rotation);
@@ -46,9 +45,9 @@ public class Effects : MonoBehaviour
         {
             Instantiate(_sparkEffect, collision.contacts[Random.Range(0, collision.contactCount)].point, transform.rotation);
             StartCoroutine(StartFire());
-        }
+        }*/
     }
-
+    /*
     private IEnumerator StartSmoke()
     {
         yield return new WaitForSeconds(1);
@@ -68,12 +67,17 @@ public class Effects : MonoBehaviour
         yield break;
     }
 
-    public void ChangePatricleLifetime(int mod)
+    public void ChangePatricleLifetime(float value, int mod)
     {
         foreach (var particle in _boostEffect)
         {
             particle.gameObject.SetActive(true);
             particle.startLifetime += mod * 0.035f;
+        }
+
+        if (mod == 0)
+        {
+            Clearboost();
         }
     }
 
@@ -81,9 +85,9 @@ public class Effects : MonoBehaviour
     {
         foreach (var particle in _boostEffect)
         {
-            particle.startLifetime = Mathf.Lerp(particle.startLifetime, 0, Time.fixedDeltaTime * 3);
+            particle.startLifetime = Mathf.Lerp(particle.startLifetime, 0, 1f);
         }
-    }
+    }*/
 
     public void Brake()
     {
@@ -94,11 +98,8 @@ public class Effects : MonoBehaviour
             return;
         }
 
-        if (_car.IsGrounded && _trailCreated == false && (_car.CurrentAngle < -29 || _car.CurrentAngle > 29))
+        if (_car.Finished)
         {
-            timer += Time.fixedDeltaTime;
-            Debug.Log("!!!");
-
             for (int i = 0; i < _brakeEffectPosition.Length; i++)
             {
                 Instantiate(_brakePrefub, _brakeEffectPosition[i].position, transform.rotation, transform);

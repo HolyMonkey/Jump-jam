@@ -15,16 +15,18 @@ public class TrackingCamera : MonoBehaviour
 
     private void Start()
     {
-        _offset = transform.position - _anchor.position;
+        _offset = transform.position - _anchor.position; //new Vector3(0, 5f, -10);
         _startRotation = transform.rotation;
-        //_startRotation = new Quaternion(transform.rotation.x, transform.rotation.y, 0, 1);
     }
 
     private void FixedUpdate()
     {
         transform.position = Vector3.Lerp(transform.position, _anchor.position + _offset, _moveSpeed * Time.fixedDeltaTime);
-        //transform.rotation = Quaternion.Lerp(transform.rotation, _anchor.transform.rotation * _startRotation, _rotationSpeed * Time.fixedDeltaTime);        
-        // transform.rotation = Quaternion.Lerp(new Quaternion(transform.rotation.x,transform.rotation.y,0,1), _anchor.rotation * _startRotation, _rotationSpeed * Time.fixedDeltaTime);
-        transform.rotation = Quaternion.Euler(6, transform.rotation.y, 0);
+        transform.rotation = Quaternion.Lerp(transform.rotation, _anchor.rotation * _startRotation, _rotationSpeed * Time.fixedDeltaTime);
+    }
+
+    public void StopRotate()
+    {
+        _rotationSpeed = 0.01f;
     }
 }

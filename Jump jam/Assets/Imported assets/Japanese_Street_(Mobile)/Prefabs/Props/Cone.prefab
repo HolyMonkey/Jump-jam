@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 3366207111351489417}
   - component: {fileID: 1808459258513120300}
   - component: {fileID: 4538510585135900902}
+  - component: {fileID: 6128824210037108131}
   - component: {fileID: 7663290640974985363}
-  - component: {fileID: -9201935997261342691}
   m_Layer: 0
   m_Name: Cone
   m_TagString: Untagged
@@ -81,6 +81,24 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!205 &6128824210037108131
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2737338809645500723}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: 0, y: 0, z: 0}
+  m_Size: 1
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0.09651109
+    fadeTransitionWidth: 0
+    renderers: []
+  m_Enabled: 1
 --- !u!65 &7663290640974985363
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -94,19 +112,3 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.2510605, y: 0.35969654, z: 0.25837046}
   m_Center: {x: 0, y: 0.17984827, z: 0}
---- !u!54 &-9201935997261342691
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2737338809645500723}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0.1
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0

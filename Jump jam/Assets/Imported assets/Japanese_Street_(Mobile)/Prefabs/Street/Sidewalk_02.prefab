@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7740688137666566153}
   - component: {fileID: 6684372416581146540}
   - component: {fileID: 8874164969657983846}
+  - component: {fileID: 4471996983250688579}
   - component: {fileID: 2252368090454680776}
   m_Layer: 0
   m_Name: Sidewalk_02
@@ -80,6 +81,25 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!205 &4471996983250688579
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6928685179154350771}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: 1, y: 0, z: -2.5}
+  m_Size: 5
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0.09651109
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 8874164969657983846}
+  m_Enabled: 1
 --- !u!65 &2252368090454680776
 BoxCollider:
   m_ObjectHideFlags: 0

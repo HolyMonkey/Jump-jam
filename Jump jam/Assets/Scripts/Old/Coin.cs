@@ -17,11 +17,6 @@ public class Coin : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.TryGetComponent(out Car car))
-        {
-            transform.DOMove(_target.position, 20f);
-            //transform.DOScale(new Vector3(0.1f,0.1f,0.1f), 1);
-            car.GetCoin();
-        }
+        
     }
 }

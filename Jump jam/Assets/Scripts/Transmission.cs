@@ -3,56 +3,132 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class Transmission : MonoBehaviour
 {
     [SerializeField] private Image _knob;
-    [SerializeField] private Transform[] _knobPosition;
+    [SerializeField] private Transform[] _center;
+    [SerializeField] private Transform[] _speed;
     [SerializeField] private Tachometer _tachometer;
-    [SerializeField] private Image _image;
+    [SerializeField] private Image _image;    
 
     private int _currentSpeed = 0;
-    private Color _currentColor;
+    private Vector3[] path;
+    private int _nextSpeed;
 
-    public event UnityAction<int> SpeedChanged;
+    public event UnityAction<float, int> SpeedChanged;
 
     public int CurrentSpeed => _currentSpeed;
 
-    private void Start()
+    public void NextSpeed(int value)
     {
-        _currentColor = _image.color;
+        _nextSpeed = value;
     }
 
     public void ChangeSpeed()
     {
-        StartCoroutine(Click());
+        Debug.Log($"Осуществляю переход с {_currentSpeed} скорости на {_nextSpeed} скорость.");
+        if (_currentSpeed > _nextSpeed && _nextSpeed !=0)
+        {
+            DecreaseSpeed();
+        }
+        else if (_currentSpeed < _nextSpeed)
+        {
+            IncreaseSpeed();
+        }
+        else if (_nextSpeed == 0)
+        {
+            Neutral();
+        }
+    }
+
+    public void IncreaseSpeed()
+    {
         _knob.gameObject.SetActive(true);
 
-        if (_currentSpeed < 5)
+        switch (_currentSpeed)
         {
-            _knob.transform.position = _knobPosition[_currentSpeed].position;
-            _currentSpeed++;
-            SpeedChanged?.Invoke(1);
+            case 0:
+                path = new Vector3[2] { _center[0].position, _speed[0].position };
+                _knob.transform.DOPath(path, 0.5f);
+                break;
+            case 1:
+                path = new Vector3[2] { _center[0].position, _speed[1].position };
+                _knob.transform.DOPath(path, 0.5f);
+                break;
+            case 2:
+                path = new Vector3[3] { _center[0].position, _center[1].position, _speed[2].position };
+                _knob.transform.DOPath(path, 0.7f);
+                break;
+            case 3:
+                path = new Vector3[2] { _center[1].position, _speed[3].position };
+                _knob.transform.DOPath(path, 0.5f);
+                break;
+            case 4:
+                path = new Vector3[3] { _center[1].position, _center[2].position, _speed[4].position };
+                _knob.transform.DOPath(path, 0.7f);
+                break;
         }
+        _currentSpeed++;
+        SpeedChanged?.Invoke(1,1);
     }
 
-    public IEnumerator LoseSpeed()
+    public void DecreaseSpeed()
     {
-        for (int i = 5; i > 0; i--)
+        switch (_currentSpeed)
         {
-            _knob.transform.position = _knobPosition[i - 1].position;
-            yield return new WaitForSeconds(0.7f);
+            case 5:
+                path = new Vector3[3] { _center[2].position, _center[1].position, _speed[3].position };
+                _knob.transform.DOPath(path, 0.7f);
+                break;
+            case 4:
+                path = new Vector3[2] { _center[1].position, _speed[2].position };
+                _knob.transform.DOPath(path, 0.5f);
+                break;
+            case 3:
+                path = new Vector3[3] { _center[1].position, _center[0].position, _speed[1].position };
+                _knob.transform.DOPath(path, 0.7f);
+                break;
+            case 2:
+                path = new Vector3[2] { _center[0].position, _speed[0].position };
+                _knob.transform.DOPath(path, 0.5f);
+                break;
+            case 1:
+                path = new Vector3[1] { _center[0].position };
+                _knob.transform.DOPath(path, 0.25f);
+                break;
         }
-        yield break;
+        _currentSpeed--;
+        SpeedChanged?.Invoke(-0.1f,-1);
     }
 
-    public IEnumerator Click()
+    public void Neutral()
     {
-        //_image.color = new Color(199, 199, 199, 1);
-        _image.transform.localScale = new Vector3(2.35f, 2.35f, 1);
-        yield return new WaitForSeconds(0.15f);
-        //_image.color = _currentColor;
-        _image.transform.localScale = new Vector3(2.2f, 2.2f, 1);
-        yield break;
+        switch (_currentSpeed)
+        {
+            case 5:
+                path = new Vector3[1] { _center[2].position };
+                _knob.transform.DOPath(path, 0.25f);
+                break;
+            case 4:
+                path = new Vector3[1] { _center[1].position };
+                _knob.transform.DOPath(path, 0.25f);
+                break;
+            case 3:
+                path = new Vector3[1] { _center[1].position };
+                _knob.transform.DOPath(path, 0.25f);
+                break;
+            case 2:
+                path = new Vector3[1] { _center[0].position };
+                _knob.transform.DOPath(path, 0.5f);
+                break;
+            case 1:
+                path = new Vector3[1] { _center[0].position };
+                _knob.transform.DOPath(path, 0.7f);
+                break;
+        }
+        _currentSpeed = 0;
+        SpeedChanged?.Invoke(-0.1f,0);
     }
 }

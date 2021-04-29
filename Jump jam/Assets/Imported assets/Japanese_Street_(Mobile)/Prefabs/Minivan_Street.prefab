@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7751820692859726925}
   - component: {fileID: 6646227059706307560}
   - component: {fileID: 8924114683358795554}
+  - component: {fileID: 6206073468274186183}
   - component: {fileID: 7170269722578250402}
   m_Layer: 0
   m_Name: Minivan_Street
@@ -80,6 +81,25 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!205 &6206073468274186183
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6978379806242862839}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: 0, y: 0.9376019, z: 0.085042715}
+  m_Size: 3.4368367
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0.09651109
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 8924114683358795554}
+  m_Enabled: 1
 --- !u!65 &7170269722578250402
 BoxCollider:
   m_ObjectHideFlags: 0
