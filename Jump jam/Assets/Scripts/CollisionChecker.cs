@@ -9,27 +9,33 @@ public class CollisionChecker : MonoBehaviour
     [SerializeField] private TrackingCamera _camera;
     [SerializeField] private GameObject _result;
     [SerializeField] private UiPanel _uiPanel;
-    [SerializeField] private ParticleSystem _boost;
-    [SerializeField] private ParticleSystem _boost2;
     [SerializeField] private Light _leftLight;
     [SerializeField] private Light _rightLight;
 
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out JumpChecker jumper))
+        if (other.TryGetComponent(out JumpChecker jumper) && !_car.Bot)
         {
-            _uiPanel.ChangeUi();
+            Time.timeScale = 0.4f;
+            StartCoroutine(_uiPanel.ChangeUi());
             _car.Jumped = true;
-            Time.timeScale = 1;
+        }
+
+        if (other.TryGetComponent(out JumpChecker jumper1) && _car.Bot)
+        {
+            _car.BotBoost.SetActive(true);
+            _car.BoostValue = 2;
+            _car.Nitro();
         }
 
         if (other.TryGetComponent(out Finish finish))
-        {
+        {            
+            _car.BotBoost.SetActive(false);
             _car.Finished = true;
-            _car.Brake(3000);
+            _car.Brake(30000);
             _camera.StopRotate();
-            _result.SetActive(true);
+            //_result.SetActive(true);
             _leftLight.intensity = 2;
             _rightLight.intensity = 2;
         }
@@ -44,16 +50,6 @@ public class CollisionChecker : MonoBehaviour
             _result.SetActive(true);
         }
     }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.TryGetComponent(out Finish finish))
-        {
-            _boost.startLifetime = Mathf.Lerp(_boost.startLifetime, 0, 0.001f);
-            _boost2.startLifetime = Mathf.Lerp(_boost2.startLifetime, 0, 0.001f);
-        }
-    }
-
 
     private void OnCollisionEnter(Collision collision)
     {

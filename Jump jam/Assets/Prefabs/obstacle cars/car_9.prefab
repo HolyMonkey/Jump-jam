@@ -90,6 +90,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -118,6 +119,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &6217013624188712722
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,6 +134,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _effect: {fileID: 192151550676665496, guid: 72f050cc689870746830bf0239fa27d5, type: 3}
   _spawnPoint: {fileID: 4520024995688786841}
+  _effects:
+  - {fileID: 55483972765145360, guid: 9cc9c32168401814db5f516f8f3b6837, type: 3}
+  - {fileID: 55483972765145360, guid: 01a9cc32a5c41214bba100859181a078, type: 3}
+  - {fileID: 55483972765145360, guid: f88f917a2ce00d847829434a72cf64b5, type: 3}
 --- !u!114 &6217013624188712721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,9 +172,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6217013624188712720}
   serializedVersion: 2
-  m_Mass: 400
-  m_Drag: 0.05
-  m_AngularDrag: 0.05
+  m_Mass: 7000
+  m_Drag: 0.1
+  m_AngularDrag: 0.1
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0

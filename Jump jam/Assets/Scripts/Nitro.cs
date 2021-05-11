@@ -13,9 +13,9 @@ public class Nitro : MonoBehaviour
 
     public void Boost()
     {
-        _car.Nitro();
+        _car.BoostValue++;
         _nitro.SetActive(true);
-        _smoke.startLifetime = Mathf.Lerp(_smoke.startLifetime, 0, 0.5f);
-        _smoke2.startLifetime = Mathf.Lerp(_smoke2.startLifetime, 0, 0.5f);
+        _smoke.startLifetime = Mathf.Lerp(_smoke.startLifetime, 0, 0.8f);
+        _smoke2.startLifetime = Mathf.Lerp(_smoke2.startLifetime, 0, 0.8f);
     }
 }

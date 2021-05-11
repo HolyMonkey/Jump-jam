@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using NWH.WheelController3D;
 
 public class Drive : MonoBehaviour
 {
@@ -17,18 +19,23 @@ public class Drive : MonoBehaviour
     [SerializeField] private float _currentMaxTransitionModifier;
     [SerializeField] private GasPedal _pedal;
     [Range(0, 1)] [SerializeField] private float _steerAssistValue;
+    [SerializeField] private Text _crushedCarsText;
+    [SerializeField] private bool _bot;
 
 
-    
     private float _steerAngle = 30;
-    private float _previousYRotation;   
-    
+    private float _previousYRotation;
+
     public float MaxSpeed;
+
     public bool Jumped = false;
     public bool IsGrounded;
     public bool Finished = false;
     public int CarSmashed = 0;
+    public GameObject BotBoost;
     public float CarSpeed => _carSpeed;
+    public bool Bot => _bot;
+    public int BoostValue = 0;
 
     private void Start()
     {
@@ -37,9 +44,52 @@ public class Drive : MonoBehaviour
 
     private void FixedUpdate()
     {
-        CheckGround();
-        Accelerate();
-        SteerAssist();
+        if (!_bot)
+        {
+            CheckGround();
+            Accelerate();
+            SteerAssist();
+            _crushedCarsText.text = Mathf.RoundToInt(CarSmashed / 4).ToString();
+        }
+        else
+        {
+            BotAccelerate();
+        }
+
+    }
+
+    private void BotAccelerate()
+    {
+        if (!Jumped)
+        {
+            foreach (var axle in _carAxis)
+            {
+                if (axle.Riding)
+                {
+                    _carSpeed = _speed * Mathf.Lerp(0.3f, 2.5f, Time.fixedDeltaTime * 11f);
+                    axle.RightWheel.motorTorque = _carSpeed;
+                    axle.LeftWheel.motorTorque = _carSpeed;
+
+                    VisualizeWheel(axle.RightWheel, axle.RightWheelView);
+                    VisualizeWheel(axle.LeftWheel, axle.LeftWheelView);
+                }
+            }
+        }
+        else
+        {
+            foreach (var axle in _carAxis)
+            {
+                if (axle.Riding)
+                {
+                    _carSpeed = _speed * Mathf.Lerp(2, 1, Time.fixedDeltaTime * 1.5f);
+                    axle.RightWheel.motorTorque = _carSpeed;
+                    axle.LeftWheel.motorTorque = _carSpeed;
+
+                    VisualizeWheel(axle.RightWheel, axle.RightWheelView);
+                    VisualizeWheel(axle.LeftWheel, axle.LeftWheelView);
+                }
+            }
+        }
     }
 
     private void Accelerate()
@@ -94,14 +144,14 @@ public class Drive : MonoBehaviour
 
             if (axle.Steering)
             {
-                axle.RightWheel.steerAngle = _steerAngle * _joystick.Horizontal / 3f;
-                axle.LeftWheel.steerAngle = _steerAngle * _joystick.Horizontal / 3f;
+                axle.RightWheel.steerAngle = _steerAngle * _joystick.Horizontal;
+                axle.LeftWheel.steerAngle = _steerAngle * _joystick.Horizontal;
 
                 VisualizeWheel(axle.RightWheel, axle.RightWheelView);
                 VisualizeWheel(axle.LeftWheel, axle.LeftWheelView);
             }
         }
-        MaxSpeed = _speed * _currentMaxTransitionModifier;               
+        MaxSpeed = _speed * _currentMaxTransitionModifier;
     }
 
     private void SteerAssist()
@@ -120,6 +170,11 @@ public class Drive : MonoBehaviour
         _previousYRotation = _carBody.transform.rotation.eulerAngles.y;
     }
 
+    public void Nitro()
+    {
+        _rigidbody.AddForce((_carBody.transform.forward * BoostValue * 300), ForceMode.Impulse);
+    }
+
     private void CheckGround()
     {
         IsGrounded = true;
@@ -132,7 +187,7 @@ public class Drive : MonoBehaviour
         }
     }
 
-    private void VisualizeWheel(WheelCollider collider, Transform view)
+    private void VisualizeWheel(WheelController collider, Transform view)
     {
         Vector3 position;
         Quaternion rotation;
@@ -166,16 +221,11 @@ public class Drive : MonoBehaviour
         }
     }
 
-    public void Nitro()
-    {
-        _rigidbody.AddForce(_carBody.transform.forward * 50, ForceMode.Impulse);
-    }
-
     [System.Serializable]
     public class Axle
     {
-        public WheelCollider RightWheel;
-        public WheelCollider LeftWheel;
+        public WheelController RightWheel;
+        public WheelController LeftWheel;
 
         public Transform RightWheelView;
         public Transform LeftWheelView;
