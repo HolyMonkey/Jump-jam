@@ -24,7 +24,7 @@ public class Drive : MonoBehaviour
 
     [SerializeField] private GameObject _botBoostEffect;
     [SerializeField] private GameObject _botSmokeEffect;
-
+    
 
     private float _steerAngle = 30;
     private float _previousYRotation;

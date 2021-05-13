@@ -14,6 +14,7 @@ public class GasPedal : MonoBehaviour//, IPointerDownHandler, IPointerUpHandler
     [SerializeField] private GameObject _flare;
     [SerializeField] private GameObject _transmissionBoostEffect;
     [SerializeField] private GameObject _smokeEffects;
+    [SerializeField] private MessagePanel _message;
 
     private WaitForSeconds _delay = new WaitForSeconds(0.02f);
     private bool _gas = false;
@@ -76,6 +77,7 @@ public class GasPedal : MonoBehaviour//, IPointerDownHandler, IPointerUpHandler
         {
             TransmissionTimer = 0;
             Transmission++;
+            StartCoroutine(_message.ShowMessage(_message.Messages[Random.Range(0, _message.Messages.Length)]));
             _car.Rigidbody.AddForce((_car.transform.forward * 25000), ForceMode.Impulse);
             _transmissionBoostEffect.SetActive(true);
             _smokeEffects.SetActive(false);
