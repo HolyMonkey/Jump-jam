@@ -11,6 +11,8 @@ public class MessagePanel : MonoBehaviour
     [SerializeField] private Drive _car;
     [SerializeField] private Drive _bot;
 
+    private bool _show = false;
+
     public string[] Messages = { "Faaaster!", "Boooooost!", "Chaaarge!", "Yahoooo!" };
 
     public IEnumerator ShowMessage(string value)
@@ -23,8 +25,9 @@ public class MessagePanel : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(_car.transform.position.z > _bot.transform.position.z)
+        if (_car.transform.position.z > _bot.transform.position.z && !_show && _car.Jumped)
         {
+            _show = true;
             StartCoroutine(ShowMessage("Amazing Jump!!!"));
         }
     }

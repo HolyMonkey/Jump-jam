@@ -102,15 +102,15 @@ public class Drive : MonoBehaviour
     {
         _botBoostTimer += Time.deltaTime;
          
-        if(_botBoostTimer >=3)
+        if(_botBoostTimer >=3 && !Jumped)
         {
-            Rigidbody.AddForce((transform.forward * 25000), ForceMode.Impulse);
+            Rigidbody.AddForce((transform.forward * 25500), ForceMode.Impulse);
             _botBoostEffect.SetActive(true);
             _botSmokeEffect.SetActive(false);
             _botBoostTimer = 0;
         }
 
-        if (_botBoostTimer > 1.0f)
+        if (_botBoostTimer > 1.0f && !Jumped)
         {
             _botBoostEffect.SetActive(false);
             _botSmokeEffect.SetActive(true);
@@ -127,23 +127,23 @@ public class Drive : MonoBehaviour
                     _transmissionModifier = 0;
                     break;
                 case 1:
-                    _currentMaxTransitionModifier = 0.5f;                    
+                    _currentMaxTransitionModifier = 1f;                    
                     _transmissionModifier = Mathf.Lerp(_transmissionModifier, _currentMaxTransitionModifier, Time.fixedDeltaTime);
                     break;
                 case 2:
-                    _currentMaxTransitionModifier = 1f;
-                    _transmissionModifier = Mathf.Lerp(_transmissionModifier, _currentMaxTransitionModifier, Time.fixedDeltaTime);
-                    break;
-                case 3:
                     _currentMaxTransitionModifier = 1.5f;
                     _transmissionModifier = Mathf.Lerp(_transmissionModifier, _currentMaxTransitionModifier, Time.fixedDeltaTime);
                     break;
-                case 4:
+                case 3:
                     _currentMaxTransitionModifier = 2f;
                     _transmissionModifier = Mathf.Lerp(_transmissionModifier, _currentMaxTransitionModifier, Time.fixedDeltaTime);
                     break;
-                case 5:
+                case 4:
                     _currentMaxTransitionModifier = 2.5f;
+                    _transmissionModifier = Mathf.Lerp(_transmissionModifier, _currentMaxTransitionModifier, Time.fixedDeltaTime);
+                    break;
+                case 5:
+                    _currentMaxTransitionModifier = 3f;
                     _transmissionModifier = Mathf.Lerp(_transmissionModifier, _currentMaxTransitionModifier, Time.fixedDeltaTime);
                     break;
             }

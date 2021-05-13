@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class GasPedal : MonoBehaviour//, IPointerDownHandler, IPointerUpHandler
 {
@@ -15,6 +16,7 @@ public class GasPedal : MonoBehaviour//, IPointerDownHandler, IPointerUpHandler
     [SerializeField] private GameObject _transmissionBoostEffect;
     [SerializeField] private GameObject _smokeEffects;
     [SerializeField] private MessagePanel _message;
+    [SerializeField] private Image _frame;
 
     private WaitForSeconds _delay = new WaitForSeconds(0.02f);
     private bool _gas = false;
@@ -68,14 +70,17 @@ public class GasPedal : MonoBehaviour//, IPointerDownHandler, IPointerUpHandler
     }
 
     private void CalculateBoost()
-    {
-        Debug.Log(Transmission);
-        Debug.Log(TransmissionTimer);
+    {       
+        if(TransmissionTimer >=2.4 && !_car.Jumped && Transmission < 5)
+        {
+            _frame.DOColor(new Color(_frame.color.r, _frame.color.g, _frame.color.b, 0.7f), 0.1f);
+        }
 
         TransmissionTimer += Time.deltaTime;
-        if(Input.GetMouseButtonDown(0) && Transmission < 5 && TransmissionTimer >= 3)
+        if(Input.GetMouseButtonDown(0) && Transmission < 5 && TransmissionTimer >= 2.5f && !_car.Jumped)
         {
             TransmissionTimer = 0;
+            _frame.DOColor(new Color(_frame.color.r, _frame.color.g, _frame.color.b, 0f), 0.1f);
             Transmission++;
             StartCoroutine(_message.ShowMessage(_message.Messages[Random.Range(0, _message.Messages.Length)]));
             _car.Rigidbody.AddForce((_car.transform.forward * 25000), ForceMode.Impulse);
