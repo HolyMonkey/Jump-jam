@@ -5,14 +5,15 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class GasPedal : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+public class GasPedal : MonoBehaviour//, IPointerDownHandler, IPointerUpHandler
 {
     [SerializeField] private Slider _slider;    
     [SerializeField] private Drive _car;
     [SerializeField] private Light _leftLight;
     [SerializeField] private Light _rightLight;
     [SerializeField] private GameObject _flare;
-
+    [SerializeField] private GameObject _transmissionBoostEffect;
+    [SerializeField] private GameObject _smokeEffects;
 
     private WaitForSeconds _delay = new WaitForSeconds(0.02f);
     private bool _gas = false;
@@ -22,6 +23,7 @@ public class GasPedal : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public bool Gas => _gas;
     public float Transmission = 0;
+    public float TransmissionTimer = 3;
 
     private void Update()
     {
@@ -29,7 +31,7 @@ public class GasPedal : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         CalculateBoost();
         Lights();
     }
-
+    /*
     public void OnPointerDown(PointerEventData eventData)
     {
         _previousSliderValue = _slider.value;
@@ -43,7 +45,7 @@ public class GasPedal : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         _gas = false;
         StartCoroutine(Deceleration());
     }
-
+    */
     private IEnumerator Acceleration()
     {
         while (_gas && Transmission <5)
@@ -66,14 +68,40 @@ public class GasPedal : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     private void CalculateBoost()
     {
-        if (_slider.value >= 0 && _slider.value <= 5)
+        Debug.Log(Transmission);
+        Debug.Log(TransmissionTimer);
+
+        TransmissionTimer += Time.deltaTime;
+        if(Input.GetMouseButtonDown(0) && Transmission < 5 && TransmissionTimer >= 3)
+        {
+            TransmissionTimer = 0;
+            Transmission++;
+            _car.Rigidbody.AddForce((_car.transform.forward * 25000), ForceMode.Impulse);
+            _transmissionBoostEffect.SetActive(true);
+            _smokeEffects.SetActive(false);
+        }
+
+        if(TransmissionTimer >1.0f)
+        {
+            _smokeEffects.SetActive(true);
+            _transmissionBoostEffect.SetActive(false);
+        }
+
+        if(TransmissionTimer > 5)
+        {
+            Transmission--;
+            TransmissionTimer = 2;
+        }
+        
+        
+        /*if (_slider.value >= 0 && _slider.value <= 5)
         {
             Transmission = _slider.value;
         }
         else
         {
             Transmission = 10 - _slider.value;
-        }
+        }*/
     }
 
     private void Flare()

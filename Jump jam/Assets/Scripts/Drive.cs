@@ -22,20 +22,25 @@ public class Drive : MonoBehaviour
     [SerializeField] private Text _crushedCarsText;
     [SerializeField] private bool _bot;
 
+    [SerializeField] private GameObject _botBoostEffect;
+    [SerializeField] private GameObject _botSmokeEffect;
+
 
     private float _steerAngle = 30;
     private float _previousYRotation;
+    private float _botBoostTimer = 3;
+    
+    public GameObject BotBoost;
+    public float CarSpeed => _carSpeed;
+    public Rigidbody Rigidbody => _rigidbody;
 
+    public bool Bot => _bot;
+    public int BoostValue = 0;
     public float MaxSpeed;
-
     public bool Jumped = false;
     public bool IsGrounded;
     public bool Finished = false;
     public int CarSmashed = 0;
-    public GameObject BotBoost;
-    public float CarSpeed => _carSpeed;
-    public bool Bot => _bot;
-    public int BoostValue = 0;
 
     private void Start()
     {
@@ -54,6 +59,7 @@ public class Drive : MonoBehaviour
         else
         {
             BotAccelerate();
+            BotBooster();
         }
 
     }
@@ -66,7 +72,7 @@ public class Drive : MonoBehaviour
             {
                 if (axle.Riding)
                 {
-                    _carSpeed = _speed * Mathf.Lerp(0.3f, 2.5f, Time.fixedDeltaTime * 11f);
+                    _carSpeed = _speed * Mathf.Lerp(0.4f, 2.5f, Time.fixedDeltaTime * 10f);
                     axle.RightWheel.motorTorque = _carSpeed;
                     axle.LeftWheel.motorTorque = _carSpeed;
 
@@ -92,17 +98,36 @@ public class Drive : MonoBehaviour
         }
     }
 
-    private void Accelerate()
+    private void BotBooster()
+    {
+        _botBoostTimer += Time.deltaTime;
+         
+        if(_botBoostTimer >=3)
+        {
+            Rigidbody.AddForce((transform.forward * 25000), ForceMode.Impulse);
+            _botBoostEffect.SetActive(true);
+            _botSmokeEffect.SetActive(false);
+            _botBoostTimer = 0;
+        }
+
+        if (_botBoostTimer > 1.0f)
+        {
+            _botBoostEffect.SetActive(false);
+            _botSmokeEffect.SetActive(true);
+        }
+    }
+
+    public void Accelerate()
     {
         if (!Jumped)
-        {
+        {            
             switch (Mathf.RoundToInt(_pedal.Transmission))
             {
                 case 0:
                     _transmissionModifier = 0;
                     break;
                 case 1:
-                    _currentMaxTransitionModifier = 0.5f;
+                    _currentMaxTransitionModifier = 0.5f;                    
                     _transmissionModifier = Mathf.Lerp(_transmissionModifier, _currentMaxTransitionModifier, Time.fixedDeltaTime);
                     break;
                 case 2:
@@ -170,7 +195,7 @@ public class Drive : MonoBehaviour
         _previousYRotation = _carBody.transform.rotation.eulerAngles.y;
     }
 
-    public void Nitro()
+    public void JumpNitro()
     {
         _rigidbody.AddForce((_carBody.transform.forward * BoostValue * 300), ForceMode.Impulse);
     }

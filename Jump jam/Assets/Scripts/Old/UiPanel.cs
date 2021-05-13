@@ -52,7 +52,7 @@ public class UiPanel : MonoBehaviour
         yield return new WaitForSeconds(0.8f);
         _nitro.SetActive(false);
         Time.timeScale = 1;
-        _car.Nitro();
+        _car.JumpNitro();
         yield return new WaitForSeconds(7);
         _result.SetActive(true);
         yield break;

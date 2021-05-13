@@ -26,7 +26,7 @@ public class CollisionChecker : MonoBehaviour
         {
             _car.BotBoost.SetActive(true);
             _car.BoostValue = 2;
-            _car.Nitro();
+            _car.JumpNitro();
         }
 
         if (other.TryGetComponent(out Finish finish))
