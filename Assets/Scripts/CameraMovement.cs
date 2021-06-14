@@ -4,15 +4,15 @@ using UnityEngine;
 
 namespace JumpJam
 {
+    [ExecuteAlways]
     public class CameraMovement : MonoBehaviour
     {
         [SerializeField] private Transform _target = null;
         [SerializeField] private Vector3 _offset = Vector3.zero;
-        [SerializeField] private float _speed = 1;
 
         private void Update()
         {
-            transform.position = Vector3.Lerp(transform.position, _target.position + _offset, _speed * Time.deltaTime);
+            transform.position = _target.position + _offset;
         }
     }
 }
