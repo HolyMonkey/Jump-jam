@@ -14,6 +14,11 @@ namespace JumpJam
 
         private void Update()
         {
+            if (_collider == null || !_collider.gameObject.activeInHierarchy)
+            {
+                return;
+            }
+
             _collider.GetWorldPose(out var position, out var rotation);
 
             transform.position = position;

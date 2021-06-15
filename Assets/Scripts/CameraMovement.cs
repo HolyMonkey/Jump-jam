@@ -12,7 +12,7 @@ namespace JumpJam
 
         private void Update()
         {
-            transform.position = _target.position + _offset;
+            transform.position = _target.position + Vector3.Scale(_offset, _target.lossyScale);
         }
     }
 }

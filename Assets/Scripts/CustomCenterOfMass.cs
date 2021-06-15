@@ -30,7 +30,7 @@ namespace JumpJam
 
         private void OnDrawGizmos()
         {
-            Gizmos.DrawSphere(transform.position + _targetCenterOfMass, 0.1f);
+            Gizmos.DrawSphere(transform.position + transform.rotation * _targetCenterOfMass, 0.1f);
         }
     }
 }

@@ -38,8 +38,10 @@ namespace JumpJam
 
         private void FixedUpdate()
         {
+            _rigidbody.angularVelocity.Set(0, _rigidbody.angularVelocity.y, 0);
+
             //_rigidbody.rotation = Quaternion.RotateTowards(_rigidbody.rotation, Quaternion.LookRotation(_currentDirection, Vector3.up), _rotationSpeed * Time.deltaTime);
-            var targetRotation = Quaternion.LookRotation(_currentDirection, Vector3.up);
+            var targetRotation = Quaternion.LookRotation(Quaternion.AngleAxis(-45, Vector3.up) * _currentDirection, Vector3.up);
             //_rigidbody.rotation = Quaternion.Slerp(_rigidbody.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
 
             var forwardA = _rigidbody.rotation * Vector3.forward;
@@ -60,14 +62,19 @@ namespace JumpJam
 
             foreach (var wheel in _allWheels)
             {
+                var speed = _speed * Time.deltaTime;
+
                 if (wheel.RPM > 500)
                 {
-                    wheel.MotorTorque = 0;
+                    speed = 0;
                 }
-                else
+
+                if (_currentDirection.magnitude < 0.25f)
                 {
-                    wheel.MotorTorque = _speed * Time.deltaTime;
+                    speed = -speed;
                 }
+
+                wheel.MotorTorque = speed;
             }
         }
     }
