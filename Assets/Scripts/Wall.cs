@@ -10,7 +10,7 @@ namespace JumpJam
         {
             if (collision.contactCount > 0)
             {
-                if (collision.gameObject.TryGetComponent(out PlayerOLD player))
+                if (collision.gameObject.TryGetComponent(out MonsterTruck player))
                 {
                     player.IsStanned = true;
                 }
