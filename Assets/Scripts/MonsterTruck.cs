@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 namespace JumpJam
@@ -27,19 +28,20 @@ namespace JumpJam
         private float _currentSpeed = 0;
         private float _oldYPosition = 0;
         private bool _isStanned = false;
-        private int _currentScore = 0;
         private bool _destroyed = false;
+        private int _currentScore = 0;
+        private int _currentSize = 1;
+
+        public UnityAction<int> SizeChanged;
 
         public float Speed
         {
             get => Mathf.LerpUnclamped(_speed * 0.5f, _speed, transform.localScale.y / 3.0f);
-            //get => Mathf.LerpUnclamped(0, _speed, transform.localScale.y / 1.4f);
         }
 
         public float Acceleration
         {
             get => Mathf.LerpUnclamped(_acceleration * 0.5f, _acceleration, transform.localScale.y / 3.0f);
-            //get => Mathf.LerpUnclamped(0, _acceleration, transform.localScale.y / 1.4f);
         }
 
         public bool IsStanned 
@@ -48,22 +50,7 @@ namespace JumpJam
             set
             {
                 if (_isStanned != value)
-                {
                     _isStanned = value;
-
-                    /*/
-                    if (value)
-                    {
-                        _rigidbody.isKinematic = true;
-                        //_rigidbody.constraints &= ~RigidbodyConstraints.FreezePositionY;
-                    }
-                    else
-                    {
-                        _rigidbody.isKinematic = true;
-                        //_rigidbody.constraints |= RigidbodyConstraints.FreezePositionY;
-                    }
-                    //*/
-                }
             }
         }
 
@@ -77,24 +64,18 @@ namespace JumpJam
         private void Update()
         {
             _targetDirection = _input.GetCurrentInput();
-            //_targetDirection.x = _joystick.Horizontal;
-            //_targetDirection.z = _joystick.Vertical;
             _targetDirection.z = _targetDirection.y;
             _targetDirection.y = 0;
 
             if (_targetDirection != Vector3.zero)
-            {
                 _currentDirection = _targetDirection;
-            }
         }
 
         private void FixedUpdate()
         {
             var targetRotation = Quaternion.LookRotation(Quaternion.AngleAxis(-45, Vector3.up) * _currentDirection, Vector3.up);
-            //_rigidbody.rotation = Quaternion.RotateTowards(_rigidbody.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
             var val1 = Quaternion.RotateTowards(_rigidbody.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
             var val2 = Quaternion.Slerp(_rigidbody.rotation, targetRotation, _rotationSpeed / 10 * Time.deltaTime);
-            //_rigidbody.MoveRotation(Quaternion.Angle(val1, val2) < _rotationSpeed * Time.deltaTime ? val2 : val1);
             _rigidbody.rotation = Quaternion.Angle(val1, val2) < _rotationSpeed * Time.deltaTime ? val2 : val1;
 
             var forwardA = _rigidbody.rotation * Vector3.forward;
@@ -107,10 +88,6 @@ namespace JumpJam
 
             foreach (var wheel in _rotationWheels)
             {
-                //wheel.transform.rotation = Quaternion.Slerp(wheel.transform.rotation, targetRotation, _rotationSpeed * 4 * Time.deltaTime);
-                //var newWheelRot = wheel.transform.eulerAngles;
-                //newWheelRot.y = Mathf.LerpAngle(wheel.transform.eulerAngles.y, Mathf.Clamp(angleDiff, -_maxRotationAngle, _maxRotationAngle), _rotationSpeed * 2 * Time.deltaTime);
-                //wheel.transform.eulerAngles = newWheelRot;
                 wheel.rotation = Quaternion.Slerp(wheel.rotation, Quaternion.AngleAxis(Mathf.Clamp(angleDiff, -_maxRotationAngle, _maxRotationAngle), Vector3.up) * _rigidbody.rotation, _rotationSpeed / 7 * Time.deltaTime);
             }
 
@@ -127,7 +104,6 @@ namespace JumpJam
             var newPosition = _rigidbody.position;
             newPosition.y = _oldYPosition;
             _rigidbody.position = newPosition;
-            //_rigidbody.MovePosition(_rigidbody.position + _rigidbody.rotation * (Vector3.forward * _currentSpeed / 50 * Time.deltaTime));
         }
 
         private void OnCollisionEnter(Collision collision)
@@ -139,14 +115,11 @@ namespace JumpJam
             }
 
             if (collision.gameObject.TryGetComponent(out Wall _) || _rigidbody.velocity.y > 1.5f)
-            {
                 return;
-            }
 
             var other = this;
             var truck = collision.gameObject.GetComponentInParent<MonsterTruck>();
 
-            //if (truck != null && !_destroyedBots.Contains(truck.gameObject.GetInstanceID()))
             if (truck != null)
             {
                 if (truck.transform.localScale.y > transform.localScale.y)
@@ -156,19 +129,12 @@ namespace JumpJam
                 }
 
                 if (truck._destroyed)
-                {
                     return;
-                }
 
-                //print(truck.gameObject + "\n" + truck.gameObject.GetInstanceID());
-                //other._destroyedBots.Add(truck.gameObject.GetInstanceID());
                 other.OnObjectDestroyed(_objectsCountToScale * 3);
-                //if (truck.TryGetComponent(out DestroyEffect effect))
-                {
-                    //effect.ShakeStrength =
-                }
                 truck._destroyed = true;
                 Destroy(truck.gameObject);
+
                 return;
             }
 
@@ -189,13 +155,10 @@ namespace JumpJam
         private void OnDestroyObstacleColide(DestroyTest obstacle)
         {
             if (!obstacle.enabled)
-            {
                 return;
-            }
 
             OnObjectDestroyed();
 
-            //Destroy(destroy.gameObject);
             obstacle.Destroy(transform.position);
         }
 
@@ -204,12 +167,14 @@ namespace JumpJam
             _currentScore += score;
             var newScale = transform.localScale;
             var sizeUp = false;
+
             while (_currentScore >= _objectsCountToScale && transform.localScale.y < _maxSize)
             {
                 _currentScore -= _objectsCountToScale;
                 newScale += Vector3.one * 0.5f;
                 sizeUp = true;
             }
+
             transform.DOScale(newScale, 0.5f);
 
             if (_showConsumeText)
@@ -219,6 +184,9 @@ namespace JumpJam
                 if (sizeUp)
                 {
                     MakeRisingText("Size Up!", Color.red, true, 2, 10, 0.1f);
+
+                    _currentSize++;
+                    SizeChanged?.Invoke(_currentSize);
                 }
             }
         }
@@ -233,11 +201,10 @@ namespace JumpJam
 
             _text.SetText(text);
             _text.SetColor(color);
+
             if (useBoldStyle)
-            {
                 _text.ToggleFontStyleBold();
-            }
-            //_text.SetFontSize(fontSize);
+
             _text.SetSortingOrder(layerOrder);
             _text.SetOutlineWidth(outlineWidth);
 
