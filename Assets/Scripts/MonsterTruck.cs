@@ -12,8 +12,6 @@ namespace JumpJam
     public class MonsterTruck : MonoBehaviour
     {
         [SerializeField] private bool _showConsumeText = false;
-        [SerializeField] private int _objectsCountToScale = 1;
-        [SerializeField] private float _maxSize = 4;
         [SerializeField] private RisingText _textPrefab = null;
         [SerializeField] private List<Transform> _rotationWheels = new List<Transform>();
         [SerializeField] private float _speed = 10;
@@ -28,10 +26,13 @@ namespace JumpJam
         private float _currentSpeed = 0;
         private float _oldYPosition = 0;
         private bool _isStanned = false;
+        private int _scoreToScale = 10;
         private bool _destroyed = false;
         private int _currentScore = 0;
         private int _currentSize = 1;
+        private const string SizeUp = "Size Up!";
 
+        public int CurrentSize => _currentSize;
         public UnityAction<int> SizeChanged;
 
         public float Speed
@@ -114,26 +115,23 @@ namespace JumpJam
                 return;
             }
 
-            if (collision.gameObject.TryGetComponent(out Wall _) || _rigidbody.velocity.y > 1.5f)
+            if (collision.gameObject.TryGetComponent(out Wall wall) || _rigidbody.velocity.y > 1.5f)
                 return;
 
-            var other = this;
-            var truck = collision.gameObject.GetComponentInParent<MonsterTruck>();
+            var truck = this;
+            var other = collision.gameObject.GetComponentInParent<MonsterTruck>();
 
-            if (truck != null)
+            if (other != null)
             {
-                if (truck.transform.localScale.y > transform.localScale.y)
+                if (truck._currentSize < other.CurrentSize)
                 {
-                    other = truck;
-                    truck = this;
+                    Destroy(truck.gameObject);
                 }
-
-                if (truck._destroyed)
-                    return;
-
-                other.OnObjectDestroyed(_objectsCountToScale * 3);
-                truck._destroyed = true;
-                Destroy(truck.gameObject);
+                else if (truck._currentSize == other.CurrentSize)
+                {
+                    Destroy(truck.gameObject);
+                    Destroy(other.gameObject);
+                }
 
                 return;
             }
@@ -141,52 +139,60 @@ namespace JumpJam
             IsStanned = false;
         }
 
-        private void OnTriggerEnter(Collider other)
-        {
-            var obstacle = other.GetComponentInParent<DestroyTest>();
-
-            if (obstacle != null)
-            {
-                OnDestroyObstacleColide(obstacle);
-                return;
-            }
-        }
-
         private void OnDestroyObstacleColide(DestroyTest obstacle)
         {
             if (!obstacle.enabled)
                 return;
 
-            OnObjectDestroyed();
+            EnvironmentObject environmentObject = obstacle.GetComponent<EnvironmentObject>();
+
+            if (environmentObject == null && obstacle.enabled == true)
+            {
+                obstacle.Destroy(transform.position);
+                return;
+            }
+
+            if (_currentSize < environmentObject.Level)
+                return;
+
+            int score = 0;
+
+            if (environmentObject != null)
+                score = environmentObject.Reward;
+
+            OnObjectDestroyed(score);
 
             obstacle.Destroy(transform.position);
         }
 
-        private void OnObjectDestroyed(int score = 1)
+        private void OnObjectDestroyed(int score)
         {
+            if (score == 0)
+                return;
+
+            bool hasGrown = false;
+
             _currentScore += score;
-            var newScale = transform.localScale;
-            var sizeUp = false;
 
-            while (_currentScore >= _objectsCountToScale && transform.localScale.y < _maxSize)
+            if (_currentScore >= _scoreToScale)
             {
-                _currentScore -= _objectsCountToScale;
-                newScale += Vector3.one * 0.5f;
-                sizeUp = true;
-            }
+                Vector3 newScale = transform.localScale * 1.25f;
+                transform.DOScale(newScale, 0.5f);
 
-            transform.DOScale(newScale, 0.5f);
+                _currentSize++;
+                SizeChanged?.Invoke(_currentSize);
+
+                _scoreToScale *= 2;
+                hasGrown = true;
+            }
 
             if (_showConsumeText)
             {
-                MakeRisingText("1", Color.white);
+                MakeRisingText(score.ToString(), Color.white);
 
-                if (sizeUp)
+                if (hasGrown)
                 {
-                    MakeRisingText("Size Up!", Color.red, true, 2, 10, 0.1f);
-
-                    _currentSize++;
-                    SizeChanged?.Invoke(_currentSize);
+                    MakeRisingText(SizeUp, Color.red, true, 2, 10, 0.1f);
                 }
             }
         }

@@ -19,7 +19,6 @@ namespace JumpJam
             if (TryGetComponent(out _rayfireRigid) && _rayfireRigid.enabled)
             {
                 _rayfireRigid.Initialize();
-                _rayfireRigid.physics.meshCollider.isTrigger = true;
             }
             if (TryGetComponent(out _rigidbody))
             {

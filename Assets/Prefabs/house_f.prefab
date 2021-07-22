@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1048078480227674249}
   - component: {fileID: 1940020654020716109}
   - component: {fileID: 9121496415625779696}
+  - component: {fileID: 1490473268}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -267,6 +268,20 @@ MonoBehaviour:
   dustList: []
   restriction: {fileID: 0}
   sound: {fileID: 0}
+--- !u!114 &1490473268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1048078480225416777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71d7872148d1179409a9320c78229586, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _level: 8
+  _reward: 8
 --- !u!1 &1964699235071888645
 GameObject:
   m_ObjectHideFlags: 0
@@ -379,4 +394,4 @@ Transform:
   - {fileID: 1964699235071888642}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 90}

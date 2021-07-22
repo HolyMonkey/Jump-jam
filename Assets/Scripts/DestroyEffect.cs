@@ -25,7 +25,6 @@ namespace JumpJam
                     main.scalingMode = ParticleSystemScalingMode.Hierarchy;
                 }
 
-                //CameraShake.SetDurationIfLess(_shakingDuration);
                 CameraShake.AddShake(_shakingDuration, _shakingStrength);
             }
         }
