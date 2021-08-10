@@ -12,12 +12,9 @@ GameObject:
   - component: {fileID: 3384114}
   - component: {fileID: 2377290}
   - component: {fileID: 8118062622457878535}
-  - component: {fileID: 5004887589232132538}
-  - component: {fileID: 8674178865480699583}
   - component: {fileID: 5829372899443978291}
-  - component: {fileID: 6590747305005621385}
   - component: {fileID: 7630518969585026937}
-  - component: {fileID: 738236913}
+  - component: {fileID: 2146682966}
   m_Layer: 0
   m_Name: Fir_Tree
   m_TagString: Untagged
@@ -104,32 +101,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &5004887589232132538
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 192044}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 3.7715554, y: 0.5, z: 3.7702975}
-  m_Center: {x: -0.000039458275, y: 0.75, z: -0.00022572279}
---- !u!65 &8674178865480699583
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 192044}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 3.271555, y: 0.5, z: 3.270298}
-  m_Center: {x: -0.000039458275, y: 1.25, z: -0.00022572279}
 --- !u!65 &5829372899443978291
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -141,21 +112,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.771555, y: 4, z: 2.770298}
-  m_Center: {x: -0.000039458275, y: 3.5, z: -0.00022572279}
---- !u!65 &6590747305005621385
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 192044}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.25, y: 0.5, z: 0.25}
-  m_Center: {x: -0.000039458275, y: 0.25, z: -0.00022572279}
+  m_Size: {x: 2.771555, y: 5.204037, z: 2.770298}
+  m_Center: {x: -0.000039458275, y: 2.8979814, z: -0.0002257824}
 --- !u!114 &7630518969585026937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,7 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1926ac2a218845544a5ca0b33277e429, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &738236913
+--- !u!114 &2146682966
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -182,3 +140,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _level: 2
   _reward: 2
+  _transparentMaterials:
+  - {fileID: 2100000, guid: ee85f12a6590d1541a85b22a7cdee77a, type: 2}

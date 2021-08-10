@@ -18,8 +18,6 @@ namespace JumpJam.TrafficSystem
 
         void Start()
         {
-            //UnityEngine.Random.InitState(10);
-
             var roadNetwork = new ERRoadNetwork();
             _roads = roadNetwork.GetRoads();
 
@@ -53,29 +51,19 @@ namespace JumpJam.TrafficSystem
                         float distanceStart = Vector3.Distance(points[0], auto.transform.position);
                         float distanceEnd = Vector3.Distance(points[points.Length - 1], auto.transform.position);
 
-                        //auto.CurrentWayPoint = pointNumber / 2 + 1;
                         var targetPointNumber = pointNumber + 1;
                         if (distanceStart > distanceEnd)
                         {
-                            //auto.CurrentWayPoint -= 2;
                             targetPointNumber -= 2;
                         }
 
                         var toTarget = centerPoints[targetPointNumber] - auto.transform.position;
 
-                        /*/
-                        Debug.Log("CPL: " + centerPoints.Length);
-                        Debug.Log("PN: " + pointNumber);
-                        Debug.DrawRay(auto.transform.position, Vector3.up * 10, Color.magenta, 120);
-                        Debug.DrawRay(centerPoints[pointNumber + 1], Vector3.up * 5, Color.yellow, 120);
-                        Debug.DrawRay(centerPoints[pointNumber - 1], Vector3.up * 7.5f, Color.red, 120);
-                        //*/
                         if (toTarget != Vector3.zero)  //to avoid the "Look rotation viewing vector is zero" exception
                         {
                             auto.transform.rotation = Quaternion.LookRotation(toTarget);
                         }
-                        //Debug.DrawLine(auto.HoverAuto.position, auto.transform.position + Vector3.up * 10, Color.cyan, 120);
-                        //auto.transform.forward = road.GetLookatSmooth(road.GetLength() / pointsCount * pointNumber, 0);
+                        
                         auto.enabled = true;  //Insure this is set AFTER the road and other values are set.  This value is set OFF in the prefab
 
                         centerPoints = Remove(centerPoints, pointNumber);

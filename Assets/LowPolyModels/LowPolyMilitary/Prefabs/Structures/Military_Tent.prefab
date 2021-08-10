@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 5259164127072551287}
   - component: {fileID: 6763885971873659056}
   - component: {fileID: 3965720583141439469}
+  - component: {fileID: 1343875871}
   m_Layer: 0
   m_Name: Military_Tent
   m_TagString: Untagged
@@ -174,7 +175,7 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2795704159673718723}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
   m_Convex: 1
@@ -364,3 +365,19 @@ MonoBehaviour:
   dustList: []
   restriction: {fileID: 0}
   sound: {fileID: 0}
+--- !u!114 &1343875871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2795704159673718723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71d7872148d1179409a9320c78229586, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _level: 3
+  _reward: 4
+  _transparentMaterials:
+  - {fileID: 2100000, guid: ed4989303730b3f478235b467599a486, type: 2}

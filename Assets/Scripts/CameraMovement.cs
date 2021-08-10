@@ -12,6 +12,9 @@ namespace JumpJam
 
         private void LateUpdate()
         {
+            if (transform == null)
+                return;
+                
             transform.position = _target.position + Vector3.Scale(_offset, _target.lossyScale);
         }
     }

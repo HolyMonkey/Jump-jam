@@ -10,8 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1429181236262598543}
   - component: {fileID: 2347938326839460912}
-  - component: {fileID: 3868868414735327086}
-  - component: {fileID: -1004385540753886554}
   m_Layer: 0
   m_Name: Auto 4
   m_TagString: Untagged
@@ -54,32 +52,6 @@ MonoBehaviour:
   <HoverAuto>k__BackingField: {fileID: 8277009896858969003}
   <MinRight>k__BackingField: 1.3
   <MaxRight>k__BackingField: 1.3
---- !u!114 &3868868414735327086
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7237765287013004851}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1926ac2a218845544a5ca0b33277e429, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &-1004385540753886554
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7237765287013004851}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71d7872148d1179409a9320c78229586, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _level: 1
-  _reward: 1
 --- !u!1001 &136260323188928687
 PrefabInstance:
   m_ObjectHideFlags: 0

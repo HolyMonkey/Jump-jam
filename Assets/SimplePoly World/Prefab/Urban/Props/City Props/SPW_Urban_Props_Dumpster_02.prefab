@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 413908}
+  - component: {fileID: 470167060}
   m_Layer: 0
   m_Name: SPW_Urban_Props_Dumpster_02
   m_TagString: Untagged
@@ -23,7 +24,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 152674}
-  m_LocalRotation: {x: 0.000000021855694, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -31,6 +32,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &470167060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 152674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 813796822, guid: f56d46228aee4734f9114056c53bb57e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  so: {fileID: 0}
+  prefab: {fileID: 152674}
+  soData: {fileID: 0}
+  id: 0
+  roadScript: {fileID: 0}
+  buildFlag: 0
+  locked: 0
+  child: 0
+  sectionIndex: -1
 --- !u!1 &8367192655038684815
 GameObject:
   m_ObjectHideFlags: 0
@@ -43,6 +65,9 @@ GameObject:
   - component: {fileID: 8367192655039644303}
   - component: {fileID: 8367192655040610383}
   - component: {fileID: 411163610058922913}
+  - component: {fileID: 9217579896693901728}
+  - component: {fileID: 5895606404860507726}
+  - component: {fileID: 4571732917776475738}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -128,7 +153,7 @@ MonoBehaviour:
   initialization: 0
   simulationType: 1
   objectType: 0
-  demolitionType: 2
+  demolitionType: 9
   physics:
     materialType: 9
     material: {fileID: 0}
@@ -170,7 +195,7 @@ MonoBehaviour:
     contactBias: 0
     seed: 1
     useShatter: 0
-    meshInput: 9
+    meshInput: 3
     properties:
       colliderType: 0
       sizeFilter: 0
@@ -234,7 +259,8 @@ MonoBehaviour:
     nd: 0
     am: 0
   referenceDemolition:
-    reference: {fileID: 0}
+    reference: {fileID: 919132149155446097, guid: ce1b99ef51192b84492d3abd3b9dcfac,
+      type: 3}
     randomList: []
     action: 0
     addRigid: 1
@@ -255,10 +281,10 @@ MonoBehaviour:
     onDemolition: 1
     onActivation: 0
     lifeType: 4
-    lifeTime: 1
-    lifeVariation: 1.5
+    lifeTime: 0.5
+    lifeVariation: 0.1
     fadeType: 3
-    fadeTime: 2
+    fadeTime: 0.5
     sizeFilter: 0
   reset:
     transform: 1
@@ -266,7 +292,7 @@ MonoBehaviour:
     action: 0
     destroyDelay: 1
     mesh: 4
-    fragments: 0
+    fragments: 2
     shards: 0
   initialized: 0
   meshes: []
@@ -285,3 +311,45 @@ MonoBehaviour:
   dustList: []
   restriction: {fileID: 0}
   sound: {fileID: 0}
+--- !u!114 &9217579896693901728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8367192655038684815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1926ac2a218845544a5ca0b33277e429, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!54 &5895606404860507726
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8367192655038684815}
+  serializedVersion: 2
+  m_Mass: 0.1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!64 &4571732917776475738
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8367192655038684815}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 23d48dc9b43edf34d9804640fa428668, type: 3}

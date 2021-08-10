@@ -18,6 +18,7 @@ namespace JumpJam
         [SerializeField] private float _acceleration = 10;
         [SerializeField] private float _rotationSpeed = 10;
         [SerializeField] private float _maxRotationAngle = 45;
+        [SerializeField] private MonsterTruckTrigger _trigger;
 
         private Rigidbody _rigidbody = null;
         private IInputPresenter _input = null;
@@ -34,6 +35,7 @@ namespace JumpJam
 
         public int CurrentSize => _currentSize;
         public UnityAction<int> SizeChanged;
+        public UnityAction Destroyed;
 
         public float Speed
         {
@@ -123,14 +125,14 @@ namespace JumpJam
 
             if (other != null)
             {
-                if (truck._currentSize < other.CurrentSize)
+                if (_currentSize < other.CurrentSize)
                 {
-                    Destroy(truck.gameObject);
+                    gameObject.SetActive(false);
                 }
-                else if (truck._currentSize == other.CurrentSize)
+                else if (_currentSize == other.CurrentSize)
                 {
-                    Destroy(truck.gameObject);
-                    Destroy(other.gameObject);
+                    gameObject.SetActive(false);
+                    other.gameObject.SetActive(false);
                 }
 
                 return;
@@ -151,9 +153,6 @@ namespace JumpJam
                 obstacle.Destroy(transform.position);
                 return;
             }
-
-            if (_currentSize < environmentObject.Level)
-                return;
 
             int score = 0;
 
@@ -216,6 +215,11 @@ namespace JumpJam
 
             _text.transform.position = position + transform.position;
             _text.transform.localScale = Vector3.Scale(_text.transform.localScale, transform.lossyScale / 2) * scaleMultiplier;
+        }
+
+        private void OnDisable()
+        {
+            Destroyed?.Invoke();
         }
     }
 }

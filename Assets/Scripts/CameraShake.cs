@@ -19,7 +19,6 @@ namespace JumpJam
 
 		private static CameraShake _instance = null;
 		private Vector3 _originalPos = Vector3.zero;
-		//private float _shakeDuration = 0f;
 		private readonly List<Shake> _shakes = new List<Shake>();
 
         private void Awake()
@@ -46,16 +45,12 @@ namespace JumpJam
 				var shake = _shakes[i];
 				if (shake.Duration > 0)
 				{
-					//transform.localPosition = Vector3.Slerp(transform.localPosition, _originalPos + Random.insideUnitSphere * (_shakeAmount * shake.Duration * shake.Strength), _shakeSpeed * Time.deltaTime);
 					resultShake += Random.insideUnitSphere * (_shakeAmount * shake.Duration * shake.Strength);
 
 					shake.Duration -= Time.deltaTime * _decreaseFactor;
 				}
 				else
 				{
-					//transform.localPosition = Vector3.Slerp(transform.localPosition, _originalPos, _shakeSpeed * Time.deltaTime);
-
-					//_shakeDuration = 0f;
 					_shakes.RemoveAt(i);
 					i--;
 				}
@@ -63,19 +58,6 @@ namespace JumpJam
 
 			transform.localPosition = Vector3.Slerp(transform.localPosition, _originalPos + resultShake, _shakeSpeed * Time.deltaTime);
 		}
-
-		public static void SetDurationIfLess(float duration)
-        {
-			//if (_instance._shakeDuration < duration)
-			//{
-			//	_instance._shakeDuration = duration;
-			//}
-        }
-
-		public static void AddDuration(float duration)
-        {
-			//_instance._shakeDuration += duration;
-        }
 
 		public static void AddShake(float duration, float strength)
         {

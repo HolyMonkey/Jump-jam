@@ -27,7 +27,6 @@ namespace JumpJam.TrafficSystem
         [field: SerializeField] public float MaxRight { get; set; }
         public ERRoad CurrentRoad { get; set; }
         public ERRoad PrevRoad { get; set; }
-        //public int CurrentWayPoint { get; set; }
 
         private void Start()
         {
@@ -66,25 +65,10 @@ namespace JumpJam.TrafficSystem
                     _waypoints.Add(centerPoints[i]);
                 }
 
-                //if (CurrentWayPoint >= _waypoints.Count)
-                //{
-                //    CurrentWayPoint -= 1;
-                //}
                 _currentWayPoint = minIndex;
-
-                //GetNextPath();
             }
         }
 
-        /*/
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawSphere(transform.position, 0.5f);
-        }
-        //*/
-
-        //*/
         private void OnDrawGizmosSelected()
         {
             var leftPoints = CurrentRoad.GetSplinePointsLeftSide().AsEnumerable();
@@ -122,7 +106,6 @@ namespace JumpJam.TrafficSystem
                 Gizmos.DrawSphere(point + Vector3.up * 2, 1);
             }
         }
-        //*/
 
         private void FixedUpdate()
         {

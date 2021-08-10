@@ -54,7 +54,6 @@ namespace JumpJam
         public Vector2 GetCurrentInput()
         {
             var destination = Quaternion.AngleAxis(45, Vector3.up) * (Waypoints[_currentWayPoint] - transform.position).normalized;
-            //var destination = (Waypoints[_currentWayPoint] - transform.position).normalized;
             return new Vector2(destination.x, destination.z);
         }
     }

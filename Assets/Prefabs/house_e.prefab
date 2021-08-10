@@ -175,6 +175,9 @@ GameObject:
   - component: {fileID: 2467808064821225064}
   - component: {fileID: 5607077666968472190}
   - component: {fileID: 7755616220945491895}
+  - component: {fileID: 7085527170787985670}
+  - component: {fileID: 8792089246261102557}
+  - component: {fileID: 1475749500}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -272,7 +275,7 @@ MonoBehaviour:
   initialization: 0
   simulationType: 1
   objectType: 0
-  demolitionType: 2
+  demolitionType: 9
   physics:
     materialType: 4
     material: {fileID: 0}
@@ -308,13 +311,13 @@ MonoBehaviour:
       m_Center: {x: 0, y: 0, z: 0}
       m_Extent: {x: 0, y: 0, z: 0}
   meshDemolition:
-    amount: 20
+    amount: 6
     variation: 0
     depthFade: 0.01
     contactBias: 0
     seed: 1
     useShatter: 0
-    meshInput: 9
+    meshInput: 3
     properties:
       colliderType: 0
       sizeFilter: 0
@@ -378,7 +381,8 @@ MonoBehaviour:
     nd: 0
     am: 0
   referenceDemolition:
-    reference: {fileID: 0}
+    reference: {fileID: 919132149155446097, guid: 93447c1e6cda62c46bc934ead3f5125b,
+      type: 3}
     randomList: []
     action: 0
     addRigid: 1
@@ -399,18 +403,18 @@ MonoBehaviour:
     onDemolition: 1
     onActivation: 0
     lifeType: 4
-    lifeTime: 1
-    lifeVariation: 1.5
+    lifeTime: 0.5
+    lifeVariation: 0
     fadeType: 3
-    fadeTime: 2
+    fadeTime: 0.5
     sizeFilter: 0
   reset:
     transform: 1
     damage: 1
-    action: 0
+    action: 1
     destroyDelay: 1
     mesh: 4
-    fragments: 0
+    fragments: 2
     shards: 0
   initialized: 0
   meshes: []
@@ -429,6 +433,51 @@ MonoBehaviour:
   dustList: []
   restriction: {fileID: 0}
   sound: {fileID: 0}
+--- !u!54 &7085527170787985670
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2467808064823228584}
+  serializedVersion: 2
+  m_Mass: 0.1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &8792089246261102557
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2467808064823228584}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 6.7022605, y: 13.064718, z: 6.3890443}
+  m_Center: {x: 0, y: 0, z: 3.1718595}
+--- !u!114 &1475749500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2467808064823228584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71d7872148d1179409a9320c78229586, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _level: 6
+  _reward: 8
+  _transparentMaterials:
+  - {fileID: 2100000, guid: 5ad05d1ec01cf814bb839d2558f8f5ea, type: 2}
 --- !u!1 &3613183467942468010
 GameObject:
   m_ObjectHideFlags: 0

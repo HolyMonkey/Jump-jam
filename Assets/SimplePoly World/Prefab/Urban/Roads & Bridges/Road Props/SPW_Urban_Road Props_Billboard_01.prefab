@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 3341320}
   - component: {fileID: 2337158}
   - component: {fileID: -9146170032874228227}
-  - component: {fileID: 8241893894333355595}
   - component: {fileID: 363022656821162142}
+  - component: {fileID: 8241893894333355595}
   m_Layer: 0
   m_Name: SPW_Urban_Road Props_Billboard_01
   m_TagString: Untagged
@@ -98,18 +98,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 44051473813992e4285c327a09b45e71, type: 3}
---- !u!114 &8241893894333355595
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 158938}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1926ac2a218845544a5ca0b33277e429, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!54 &363022656821162142
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -126,3 +114,15 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &8241893894333355595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 158938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1926ac2a218845544a5ca0b33277e429, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

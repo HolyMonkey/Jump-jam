@@ -8,24 +8,13 @@ namespace JumpJam
 {
     public class DestroyTest : MonoBehaviour
     {
-        private readonly WaitForEndOfFrame _delayBetweenCheckingFragments = new WaitForEndOfFrame();
-
         private Rigidbody _rigidbody = null;
         private RayfireRigid _rayfireRigid = null;
         private RigidbodyActivator _rigidbodyActivator = null;
 
         private void Awake()
         {
-            if (TryGetComponent(out _rayfireRigid) && _rayfireRigid.enabled)
-            {
-                _rayfireRigid.Initialize();
-            }
-            if (TryGetComponent(out _rigidbody))
-            {
-                _rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
-                _rigidbody.isKinematic = true;
-            }
-            _rigidbodyActivator = GetComponent<RigidbodyActivator>();
+            TryInitDependencies();
         }
 
         public void Destroy(Vector3 position)
@@ -40,10 +29,6 @@ namespace JumpJam
             {
                 _rayfireRigid.Activate();
                 _rayfireRigid.Demolish();
-                //if (!_rayfireRigid.DemolitionState())
-                //{
-                //    _rayfireRigid.Demolish();
-                //}
                 return;
             }
 
@@ -61,23 +46,37 @@ namespace JumpJam
             }
 
             Destroy(gameObject);
-
-            //_rigid.StartCoroutine(AddForceAfterFragmentsInstantinated(position));
-            //_rigid.Activate();
-            //_rigid.Demolish();
-            /*var colliders = Physics.OverlapSphere(position, 10);
-            foreach (var collider in colliders)
-            {
-                if (collider.attachedRigidbody != null)
-                {
-                    collider.attachedRigidbody.AddExplosionForce(100, position, 100);
-                }
-            }*/
         }
 
         private void OnScaleCompleted()
         {
             Destroy(gameObject);
+        }
+
+        private void TryInitDependencies()
+        {
+            if (TryGetComponent(out _rayfireRigid) && _rayfireRigid.enabled)
+                _rayfireRigid = GetComponent<RayfireRigid>();
+
+            TryInitRigidbody();
+        }
+
+        private void TryInitRigidbody()
+        {
+            if (TryGetComponent(out _rigidbody))
+            {
+                _rigidbody.collisionDetectionMode = CollisionDetectionMode.Discrete;
+                _rigidbody.isKinematic = true;
+            }
+
+            _rigidbodyActivator = GetComponent<RigidbodyActivator>();
+        }
+
+        public void InitRayfireRigid()
+        {
+            _rayfireRigid.Initialize();
+
+            TryInitRigidbody();
         }
     }
 }
