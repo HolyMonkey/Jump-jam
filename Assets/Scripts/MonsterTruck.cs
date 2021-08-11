@@ -120,8 +120,7 @@ namespace JumpJam
             if (collision.gameObject.TryGetComponent(out Wall wall) || _rigidbody.velocity.y > 1.5f)
                 return;
 
-            var truck = this;
-            var other = collision.gameObject.GetComponentInParent<MonsterTruck>();
+            var other = collision.gameObject.GetComponent<MonsterTruck>();
 
             if (other != null)
             {

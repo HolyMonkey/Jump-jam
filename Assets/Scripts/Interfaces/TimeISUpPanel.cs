@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -11,6 +12,12 @@ namespace JumpJam
     {
         [SerializeField] private TimeCounter _timer;
         [SerializeField] private Button _exitButton;
+
+        [SerializeField] private Image[] _iconsUI;
+        [SerializeField] private Image[] _targetIconsUI;
+
+        [SerializeField] private TMP_Text[] _labels;
+        [SerializeField] private TMP_Text[] _targetLabels;
 
         private CanvasGroup _group;
 
@@ -42,6 +49,9 @@ namespace JumpJam
 
         private void OnTimerStopped()
         {
+            ApplyIconsUI();
+            ApplyLabelsUI();
+
             StartFadeIn();
         }
 
@@ -67,6 +77,22 @@ namespace JumpJam
             _group.blocksRaycasts = true;
 
             Time.timeScale = 0;
+        }
+
+        private void ApplyIconsUI()
+        {
+            for (int i = 0; i < _iconsUI.Length; i++)
+            {
+                _iconsUI[i].sprite = _targetIconsUI[i].sprite;
+            }
+        }
+
+        private void ApplyLabelsUI()
+        {
+            for (int i = 0; i < _labels.Length; i++)
+            {
+                _labels[i].text = _targetLabels[i].text;
+            }
         }
     }
 }
