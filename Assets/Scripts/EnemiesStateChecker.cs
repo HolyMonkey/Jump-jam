@@ -7,35 +7,31 @@ namespace JumpJam
 {
     public class EnemiesStateChecker : MonoBehaviour
     {
-        [SerializeField] private List<MonsterTruck> trucks;
-
-        private int _trucksCount;
+        [SerializeField] private List<MonsterTruck> _trucks;
 
         public event UnityAction EnemiesDestroyed;
 
         private void OnEnable()
         {
-            for (int i = 0; i < trucks.Count; i++)
+            for (int i = 0; i < _trucks.Count; i++)
             {
-                trucks[i].Destroyed += OnTruckDestroyed;
+                _trucks[i].Destroyed += OnTruckDestroyed;
             }
-
-            _trucksCount = trucks.Count;
         }
 
         private void OnDisable()
         {
-            for (int i = 0; i < trucks.Count; i++)
+            for (int i = 0; i < _trucks.Count; i++)
             {
-                trucks[i].Destroyed -= OnTruckDestroyed;
+                _trucks[i].Destroyed -= OnTruckDestroyed;
             }
         }
 
-        private void OnTruckDestroyed()
+        private void OnTruckDestroyed(MonsterTruck truck)
         {
-            _trucksCount--;
+            _trucks.Remove(truck);
 
-            if (_trucksCount == 0)
+            if (_trucks.Count == 0)
                 EnemiesDestroyed?.Invoke();
         }
     }

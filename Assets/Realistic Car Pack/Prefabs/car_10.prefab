@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 1328405861952159467}
   - component: {fileID: 7799888179761634954}
   - component: {fileID: 4330514390729812040}
+  - component: {fileID: 5808882329012175564}
+  - component: {fileID: 193462016992909542}
   m_Layer: 0
   m_Name: car_10
   m_TagString: Untagged
@@ -147,6 +149,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1926ac2a218845544a5ca0b33277e429, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5808882329012175564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 210690306123091522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71d7872148d1179409a9320c78229586, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _level: 1
+  _reward: 1
+  _transparentMaterials: []
+--- !u!114 &193462016992909542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 210690306123091522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71d7872148d1179409a9320c78229586, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _level: 1
+  _reward: 1
+  _transparentMaterials: []
 --- !u!1 &913955451645992711
 GameObject:
   m_ObjectHideFlags: 0

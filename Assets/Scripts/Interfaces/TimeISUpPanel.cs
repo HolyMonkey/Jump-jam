@@ -19,9 +19,12 @@ namespace JumpJam
         [SerializeField] private TMP_Text[] _labels;
         [SerializeField] private TMP_Text[] _targetLabels;
 
+        [SerializeField] private CanvasGroup _scoreBoard;
+        [SerializeField] private RectTransform _player;
+
         private CanvasGroup _group;
 
-        private const string MainMenu = "MainMenu";
+        private const string TimeLimitVictory = "TimeLimitVictory";
 
         private void Start()
         {
@@ -44,7 +47,7 @@ namespace JumpJam
 
         private void OnExitButtonClick()
         {
-            SceneManager.LoadScene(MainMenu);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
         private void OnTimerStopped()
@@ -52,7 +55,14 @@ namespace JumpJam
             ApplyIconsUI();
             ApplyLabelsUI();
 
+            _scoreBoard.alpha = 1;
+
             StartFadeIn();
+
+            string playerPlace = (_player.GetSiblingIndex() + 1).ToString();
+            string playerLevel = _player.GetComponent<ScoreCounter>().Score.ToString();
+            string parametersPlace = "{\"Place\":\"" + playerPlace + "\", \"Level\":\"" + playerLevel + "\"}";
+            AppMetrica.Instance.ReportEvent(TimeLimitVictory, parametersPlace);
         }
 
         private void StartFadeIn()

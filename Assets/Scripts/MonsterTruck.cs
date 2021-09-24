@@ -35,7 +35,7 @@ namespace JumpJam
 
         public int CurrentSize => _currentSize;
         public UnityAction<int> SizeChanged;
-        public UnityAction Destroyed;
+        public UnityAction<MonsterTruck> Destroyed;
 
         public float Speed
         {
@@ -120,24 +120,30 @@ namespace JumpJam
             if (collision.gameObject.TryGetComponent(out Wall wall) || _rigidbody.velocity.y > 1.5f)
                 return;
 
-            var other = collision.gameObject.GetComponent<MonsterTruck>();
-
-            if (other != null)
+            if (collision.gameObject.TryGetComponent<MonsterTruck>(out MonsterTruck monsterTruck))
             {
-                if (_currentSize < other.CurrentSize)
-                {
-                    gameObject.SetActive(false);
-                }
-                else if (_currentSize == other.CurrentSize)
-                {
-                    gameObject.SetActive(false);
-                    other.gameObject.SetActive(false);
-                }
+                CheckCollision(monsterTruck);
+            }
 
-                return;
+            if (collision.gameObject.TryGetComponent<Wheel>(out Wheel wheel))
+            {
+                CheckCollision(wheel.Truck);
             }
 
             IsStanned = false;
+        }
+
+        public void CheckCollision(MonsterTruck other)
+        {
+            if (_currentSize < other.CurrentSize)
+            {
+                gameObject.SetActive(false);
+            }
+            else if (_currentSize == other.CurrentSize)
+            {
+                gameObject.SetActive(false);
+                other.gameObject.SetActive(false);
+            }
         }
 
         private void OnDestroyObstacleColide(DestroyTest obstacle)
@@ -156,9 +162,10 @@ namespace JumpJam
             int score = 0;
 
             if (environmentObject != null)
+            {
                 score = environmentObject.Reward;
-
-            OnObjectDestroyed(score);
+                OnObjectDestroyed(score);
+            }
 
             obstacle.Destroy(transform.position);
         }
@@ -218,7 +225,7 @@ namespace JumpJam
 
         private void OnDisable()
         {
-            Destroyed?.Invoke();
+            Destroyed?.Invoke(this);
         }
     }
 }

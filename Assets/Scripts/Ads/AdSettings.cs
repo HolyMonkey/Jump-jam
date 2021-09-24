@@ -5,28 +5,38 @@ using UnityEngine.Events;
 
 namespace JumpJam
 {
-    public class AdSettings : MonoBehaviour, IRewardedVideoAdListener
+    public class AdSettings : MonoBehaviour, IRewardedVideoAdListener, IInterstitialAdListener
     {
         [SerializeField] private Player _player;
         [SerializeField] private GameOverScreen _gameOverScreen;
 
-        private const string AppKey = "9642cd21e7186e8719b3b1e4f1a233aa0532045ae5d53fef";
-        private const string Placement = "ResurrectionRewarded";
+        private const string AppKey = "df0363ceb63b83a1a35ec2d308ab8aedd81c3fc41f6fb0d4";
+        private const string ResurrectionRewarded = "ResurrectionRewarded";
+        private const string LevelInterstitial = "LevelInterstitial";
+
+        private const string ShowViewAd = "ShowedViewAd";
 
         public event UnityAction RewardedVideoFinished;
 
         private void Start()
         {
-            int adTypes = Appodeal.REWARDED_VIDEO;
+            int adTypes = Appodeal.INTERSTITIAL | Appodeal.REWARDED_VIDEO;
             Appodeal.initialize(AppKey, adTypes, true);
 
+            Appodeal.setInterstitialCallbacks(this);
             Appodeal.setRewardedVideoCallbacks(this);
+        }
+
+        public void ShowInterstitial()
+        {
+            if (Appodeal.canShow(Appodeal.INTERSTITIAL, LevelInterstitial) && !Appodeal.isPrecache(Appodeal.INTERSTITIAL))
+                Appodeal.show(Appodeal.INTERSTITIAL, LevelInterstitial);
         }
 
         public void ShowRewardedVideo()
         {
-            if (Appodeal.canShow(Appodeal.REWARDED_VIDEO, Placement) && !Appodeal.isPrecache(Appodeal.REWARDED_VIDEO))
-                Appodeal.show(Appodeal.REWARDED_VIDEO, Placement);
+            if (Appodeal.canShow(Appodeal.REWARDED_VIDEO, ResurrectionRewarded) && !Appodeal.isPrecache(Appodeal.REWARDED_VIDEO))
+                Appodeal.show(Appodeal.REWARDED_VIDEO, ResurrectionRewarded);
         }
 
         public void onRewardedVideoClicked()
@@ -61,6 +71,36 @@ namespace JumpJam
         }
 
         public void onRewardedVideoShown()
+        {
+        }
+
+        public void onInterstitialLoaded(bool isPrecache)
+        {
+        }
+
+        public void onInterstitialFailedToLoad()
+        {
+        }
+
+        public void onInterstitialShowFailed()
+        {
+        }
+
+        public void onInterstitialShown()
+        {
+            string paremeters = "{\"Appodeal\":\"Interstitial\"}";
+            AppMetrica.Instance.ReportEvent(ShowViewAd, paremeters);
+        }
+
+        public void onInterstitialClosed()
+        {
+        }
+
+        public void onInterstitialClicked()
+        {
+        }
+
+        public void onInterstitialExpired()
         {
         }
     }

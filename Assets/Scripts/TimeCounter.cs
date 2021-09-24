@@ -19,8 +19,6 @@ namespace JumpJam
 
         private void Awake()
         {
-            Time.timeScale = 1;
-
             _timer = GetComponent<TMP_Text>();
         }
 

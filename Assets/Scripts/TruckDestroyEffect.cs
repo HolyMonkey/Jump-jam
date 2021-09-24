@@ -23,7 +23,7 @@ namespace JumpJam
             _truck.Destroyed -= OnTruckDestroyed;
         }
 
-        public void OnTruckDestroyed()
+        public void OnTruckDestroyed(MonsterTruck truck)
         {
             var effect = Instantiate(_effectPrefab, _truck.transform.position, _truck.transform.rotation);
 
@@ -34,7 +34,8 @@ namespace JumpJam
                 main.scalingMode = ParticleSystemScalingMode.Hierarchy;
             }
 
-            CameraShake.AddShake(_shakingDuration, _shakingStrength);
+            if (_truck.TryGetComponent<Player>(out Player player))
+                CameraShake.AddShake(_shakingDuration, _shakingStrength);
         }
     }
 }

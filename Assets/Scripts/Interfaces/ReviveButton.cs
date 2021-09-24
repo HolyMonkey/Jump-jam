@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace JumpJam
@@ -12,6 +13,8 @@ namespace JumpJam
 
         private Button _button;
 
+        public event UnityAction ShowedRewardedAd;
+            
         private void Awake()
         {
             _button = GetComponent<Button>();
@@ -33,6 +36,7 @@ namespace JumpJam
 
         private void OnRewardedVideoFinished()
         {
+            ShowedRewardedAd?.Invoke();
             gameObject.SetActive(false);
         }
     }

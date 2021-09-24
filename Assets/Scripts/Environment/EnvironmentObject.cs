@@ -12,10 +12,14 @@ namespace JumpJam
         [SerializeField] private int _reward;
         [SerializeField] private Material[] _transparentMaterials;
 
+        private List<Collider> _trucks = new List<Collider>();
+        
         private Collider _collider;
         private MeshRenderer _renderer;
+
         private Material[] _materials;
         private Material[] _opaqueMaterials;
+        
         private float _secondsToChangeMaterial = 0.3f;
 
         public int Level => _level;
@@ -87,6 +91,21 @@ namespace JumpJam
             }
 
             _renderer.materials = _materials;
+        }
+
+        public void AddCollider(Collider collider)
+        {
+            _trucks.Add(collider);
+        }
+
+        public void RemoveCollider(Collider collider)
+        {
+            _trucks.Remove(collider);
+        }
+
+        public int GetCollidersCount()
+        {
+            return _trucks.Count;
         }
     }
 }

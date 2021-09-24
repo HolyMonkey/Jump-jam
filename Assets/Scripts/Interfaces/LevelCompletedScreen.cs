@@ -13,8 +13,7 @@ namespace JumpJam
         [SerializeField] private Button _exitButton;
 
         private CanvasGroup _group;
-
-        private const string MainMenu = "MainMenu";
+        private const string BattleRoyaleVictory = "BattleRoyaleVictory";
 
         private void Start()
         {
@@ -37,12 +36,16 @@ namespace JumpJam
 
         private void OnExitButtonClick()
         {
-            SceneManager.LoadScene(MainMenu);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
         private void OnEnemiesDestroyed()
         {
             StartFadeIn();
+
+            string playerLevel = _enemiesState.GetComponent<MonsterTruck>().CurrentSize.ToString();
+            string parameters = "{\"Level\":\"" + playerLevel + "\"}";
+            AppMetrica.Instance.ReportEvent(BattleRoyaleVictory, parameters);
         }
 
         private void StartFadeIn()

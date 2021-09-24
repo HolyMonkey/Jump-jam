@@ -6,12 +6,10 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/MainMenu.unity
-    guid: 527fa126c1b1b984aad4e32a7373da32
-  - enabled: 1
-    path: Assets/Scenes/BattleRoyale.unity
+    path: Assets/Scenes/Game1.unity
     guid: cc85cd2bb19dfe14babc853ea5b38120
-  - enabled: 1
-    path: Assets/Scenes/TimeLimit.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 1e04bd3b989902f40ba6949c483eebdf,
+      type: 2}
+    com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000,
+      guid: f13e14b6b2669bd43b90560780bb9f9e, type: 2}

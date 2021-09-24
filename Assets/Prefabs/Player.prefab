@@ -128,7 +128,7 @@ Transform:
   m_GameObject: {fileID: 336177344116578054}
   m_LocalRotation: {x: 0, y: -0.38268343, z: 0, w: 0.92387956}
   m_LocalPosition: {x: 0, y: 1.38, z: 0}
-  m_LocalScale: {x: 1.4, y: 1.4, z: 1.4}
+  m_LocalScale: {x: 1.4000002, y: 1.4, z: 1.4000002}
   m_Children:
   - {fileID: 4536208862551486912}
   - {fileID: 4095592062182237832}
@@ -213,7 +213,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e000b69376a68c4f8602bb212095300, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trucks: []
+  _trucks:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &336177344284954857
 GameObject:
   m_ObjectHideFlags: 0
@@ -9847,7 +9853,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3919796488988492436}
-  m_LocalRotation: {x: -0, y: 0.9787475, z: 0.20506905, w: 0}
+  m_LocalRotation: {x: 0.00000009163695, y: 0.9787475, z: 0.20506905, w: -0.00000001919995}
   m_LocalPosition: {x: 0, y: 2.12, z: 0}
   m_LocalScale: {x: -0.84, y: 0.84, z: 1}
   m_Children: []
@@ -10105,6 +10111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rootBody: {fileID: 336177344116578051}
+  _monsterTruck: {fileID: 0}
 --- !u!1 &5286524891193987155
 GameObject:
   m_ObjectHideFlags: 0
@@ -10228,6 +10235,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rootBody: {fileID: 336177344116578051}
+  _monsterTruck: {fileID: 0}
 --- !u!1 &5286524891193987163
 GameObject:
   m_ObjectHideFlags: 0
@@ -10240,6 +10248,7 @@ GameObject:
   - component: {fileID: 5286524891193085017}
   - component: {fileID: 5286524891191987865}
   - component: {fileID: 5286524891193987169}
+  - component: {fileID: 1873241121}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -10324,6 +10333,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.54865247, y: 0.5274214, z: 1.1816858}
   m_Center: {x: 0.0000038444996, y: 0.38183773, z: 0.0000009536743}
+--- !u!114 &1873241121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5286524891193987163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdded0c7b5d5a91479b7f5a363d3a202, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _truck: {fileID: 336177344116578049}
 --- !u!1 &5286524891193987165
 GameObject:
   m_ObjectHideFlags: 0
@@ -10447,6 +10469,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rootBody: {fileID: 336177344116578051}
+  _monsterTruck: {fileID: 0}
 --- !u!1 &5286524891193987167
 GameObject:
   m_ObjectHideFlags: 0
@@ -10570,3 +10593,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rootBody: {fileID: 336177344116578051}
+  _monsterTruck: {fileID: 0}

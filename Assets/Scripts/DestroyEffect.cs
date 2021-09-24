@@ -24,8 +24,6 @@ namespace JumpJam
                     var main = effect.main;
                     main.scalingMode = ParticleSystemScalingMode.Hierarchy;
                 }
-
-                CameraShake.AddShake(_shakingDuration, _shakingStrength);
             }
         }
     }

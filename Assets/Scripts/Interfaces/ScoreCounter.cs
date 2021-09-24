@@ -12,7 +12,7 @@ namespace JumpJam
         [SerializeField] private TMP_Text _label;
 
         private RectTransform _rectTransform;
-        private int _score;
+        private int _score = 1;
 
         public event UnityAction<RectTransform, int> ScoreChanged;
         public int Score => _score;
@@ -41,7 +41,7 @@ namespace JumpJam
             ScoreChanged?.Invoke(_rectTransform, size);
         }
 
-        private void OnTruckDestroyed()
+        private void OnTruckDestroyed(MonsterTruck truck)
         {
             if (_monsterTruck.GetComponent<Player>() == null)
                 gameObject.SetActive(false);
